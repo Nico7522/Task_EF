@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Task_EF.Domain;
 using TaskModel = Task_EF.Entities.Task;
 using Task_EF.Repository;
+using Task_EF.Entities;
 
 namespace Task_EF.Services
 {
@@ -29,8 +30,19 @@ namespace Task_EF.Services
 
         public IEnumerable<TaskModel> GetAll()
         {
-            IEnumerable<TaskModel> tasks = _dc.Tasks.Select(t => new TaskModel(){ TaskId= t.TaskId, Title = t.Title, Description = t.Description, IsCompleted = t.IsCompleted }) ;
+            IEnumerable<TaskModel> tasks = _dc.Tasks.Select(t => new TaskModel(){ TaskId= t.TaskId, Title = t.Title, Description = t.Description, IsCompleted = t.IsCompleted, PersonTp = t.PersonTp }) ;
             return tasks ;
+        }
+
+        public IEnumerable<TaskModel> GetAllWithPerson()
+        {
+            // TO FIX
+            //IEnumerable<TaskModel> tasks = (IEnumerable<TaskModel>)_dc.TaskPerson.Join(_dc.People, tp => tp.PersonId, p => p.PersonId, (tp, p) => new { Tache = tp, Personne = p })
+            //                                             .Join(_dc.Tasks, p => p.Tache.TaskId, t => t.TaskId, (p, t) => new TaskModel{ TaskId = t.TaskId, PersonTp = t.PersonTp })
+            //                                             .GroupBy(x => x.TaskId);
+
+
+            //return tasks ;
         }
 
         public int Insert(TaskModel entity)

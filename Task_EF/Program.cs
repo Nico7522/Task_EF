@@ -101,6 +101,7 @@ ITaskRepository _taskRepo = new TaskService();
 //foreach (var item in l)
 //{
 //    Console.WriteLine(item.Description);
+
 //}
 
 #endregion
@@ -115,3 +116,17 @@ ITaskRepository _taskRepo = new TaskService();
 //}
 
 #endregion
+
+var list = _taskRepo.GetAllWithPerson();
+
+foreach (var task in list)
+{
+    Console.WriteLine(task.Title);
+    if (task.PersonTp.Count() > 0)
+    {
+        foreach (var person in task.PersonTp)
+        {
+            Console.WriteLine(person.Person.FirstName);
+        }
+    }
+}

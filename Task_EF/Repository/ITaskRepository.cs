@@ -9,6 +9,7 @@ namespace Task_EF.Repository
 {
     public interface ITaskRepository : ICrudRepository<int, TaskModel>
     {
+        IEnumerable<TaskModel> GetAllWithPerson();
        
     }
 }
