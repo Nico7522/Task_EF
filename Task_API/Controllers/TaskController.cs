@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Task_API.Mappers;
 using Task_API.Models;
 using Task_EF.Domain;
+using Task_EF.Repository;
 
 namespace Task_API.Controllers
 {
@@ -9,23 +11,18 @@ namespace Task_API.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly DataContext _dataContext;
+        private readonly ITaskRepository _task;
 
-        public TaskController(DataContext dataContext)
+        public TaskController(ITaskRepository task)
         {
-            _dataContext = dataContext;
+            _task = task;
         }
         [HttpGet]
-        public ActionResult GetAllTasks() {
+        public ActionResult<TaskModel> GetAllTasks() {
 
-            var tasks = _dataContext.Tasks.Select(t => new TaskModel
-            {
-                Title = t.Title,
-                Description = t.Description,
-                IsCompleted = t.IsCompleted
-            });
+            var tasks = _task.GetAll();
 
-            return Ok(tasks);
+            return Ok(tasks.Select(t => t.ToTask()));
         
         }
     }

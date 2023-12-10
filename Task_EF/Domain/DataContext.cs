@@ -17,9 +17,9 @@ namespace Task_EF.Domain
         public DbSet<TaskModel> Tasks { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<TaskPerson> TaskPerson { get; set; }
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-        }
+        //public DataContext(DbContextOptions<DataContext> options) : base(options)
+        //{
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

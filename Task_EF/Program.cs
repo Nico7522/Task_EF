@@ -1,4 +1,6 @@
 ﻿using Task_EF.Domain;
+using Task_EF.Repository;
+using Task_EF.Services;
 using TaskModel = Task_EF.Entities.Task;
 
 Console.WriteLine("coucou");
@@ -87,6 +89,18 @@ Console.WriteLine("coucou");
 //            Console.WriteLine(item.Person.Personne.FirstName);
 //        }
 //    }
+//}
+
+#endregion
+
+//DataContext dc = new DataContext();
+//ITaskRepository _taskRepo = new TaskService(dc);
+#region GetAll avec services
+//var l = _taskRepo.GetAll();
+
+//foreach (var item in l)
+//{
+//    Console.WriteLine(item.Description);
 //}
 
 #endregion
