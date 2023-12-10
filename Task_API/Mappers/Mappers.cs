@@ -10,6 +10,7 @@ namespace Task_API.Mappers
         {
             return new TaskModel
             {
+                TaskId = task.TaskId,
                 Title = task.Title,
                 Description = task.Description,
                 IsCompleted = task.IsCompleted,
