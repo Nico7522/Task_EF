@@ -7,6 +7,7 @@ using Task_EF.Domain;
 using TaskModel = Task_EF.Entities.Task;
 using Task_EF.Repository;
 using Task_EF.Entities;
+using Task_EF.Models;
 
 namespace Task_EF.Services
 {
@@ -34,16 +35,27 @@ namespace Task_EF.Services
             return tasks ;
         }
 
-        //public IEnumerable<TaskModel> GetAllWithPerson()
-        //{
-        //    // TO FIX
-        //    //IEnumerable<TaskModel> tasks = (IEnumerable<TaskModel>)_dc.TaskPerson.Join(_dc.People, tp => tp.PersonId, p => p.PersonId, (tp, p) => new { Tache = tp, Personne = p })
-        //    //                                             .Join(_dc.Tasks, p => p.Tache.TaskId, t => t.TaskId, (p, t) => new TaskModel{ TaskId = t.TaskId, PersonTp = t.PersonTp })
-        //    //                                             .GroupBy(x => x.TaskId);
+        public IEnumerable<TaskWithPerson> GetAllWithPerson()
+        {
+            // TO FIX
+            IEnumerable<TaskWithPerson> tasksWithPeople = _dc.TaskPerson
+                .Join(_dc.People, tp => tp.PersonId, p => p.PersonId, (tp, p) => new { TaskPerson = tp, Person = p })
+                .Join(_dc.Tasks, tp => tp.TaskPerson.TaskId, t => t.TaskId, (tp, t) => new { Tache = t, Personne = tp })
+                .GroupBy(x => x.Tache)
+                .Select(t => new TaskWithPerson()
+                {
+                    TaskId = t.Key.TaskId,
+                    Title = t.Key.Title,
+                    Description = t.Key.Description,
+                    IsCompleted = t.Key.IsCompleted,
+                    People = (List<Person>)t.Select(p => p.Personne)
+                });
+                
+          
 
 
-        //    //return tasks ;
-        //}
+            return tasksWithPeople;
+        }
 
         public int Insert(TaskModel entity)
         {

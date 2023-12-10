@@ -11,8 +11,8 @@ Console.WriteLine("coucou");
 //{
 //    dc.People.Add(new Task_EF.Entities.Person()
 //    {
-//        FirstName = "Nicolas",
-//        LastName = "D'Addabbo"
+//        FirstName = "John",
+//        LastName = "Doe"
 //    });
 
 //    dc.SaveChanges();
@@ -45,7 +45,7 @@ Console.WriteLine("coucou");
 //    dc.TaskPerson.Add(new Task_EF.Entities.TaskPerson()
 //    {
 //        TaskId = 2,
-//        PersonId = 1,
+//        PersonId = 2,
 //    });
 
 //    int EntriesNumber = dc.SaveChanges();
@@ -117,16 +117,20 @@ ITaskRepository _taskRepo = new TaskService();
 
 #endregion
 
-var list = _taskRepo.GetAllWithPerson();
+#region GetWithPerson avec service
 
+var list = _taskRepo.GetAllWithPerson();
 foreach (var task in list)
 {
-    Console.WriteLine(task.Title);
-    if (task.PersonTp.Count() > 0)
+    Console.WriteLine(task.Description);
+    if (task.People.Count() > 0)
     {
-        foreach (var person in task.PersonTp)
+        foreach (var person in task.People)
         {
-            Console.WriteLine(person.Person.FirstName);
+            Console.WriteLine(person.FirstName);
         }
     }
+
 }
+#endregion
+
