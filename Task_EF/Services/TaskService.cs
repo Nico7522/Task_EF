@@ -17,10 +17,14 @@ namespace Task_EF.Services
         {
             throw new NotImplementedException();
         }
-
+        
         public TaskModel? Get(int id)
         {
-            throw new NotImplementedException();
+            TaskModel? task = _dc.Tasks.Where(t => t.TaskId == id).SingleOrDefault();
+            if (task == null)
+                return null;
+
+            return task;
         }
 
         public IEnumerable<TaskModel> GetAll()

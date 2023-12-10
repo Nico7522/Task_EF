@@ -25,5 +25,15 @@ namespace Task_API.Controllers
             return Ok(tasks.Select(t => t.ToTask()));
         
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<TaskModel> GetOneTask(int id)
+        {
+            var task = _task.Get(id);
+            if (task is null)
+                return BadRequest();
+
+            return Ok(task.ToTask());
+        }
     }
 }

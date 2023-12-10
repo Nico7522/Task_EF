@@ -94,13 +94,24 @@ Console.WriteLine("coucou");
 #endregion
 
 //DataContext dc = new DataContext();
-//ITaskRepository _taskRepo = new TaskService(dc);
+ITaskRepository _taskRepo = new TaskService();
 #region GetAll avec services
 //var l = _taskRepo.GetAll();
 
 //foreach (var item in l)
 //{
 //    Console.WriteLine(item.Description);
+//}
+
+#endregion
+
+#region Get avec services
+
+//var task = _taskRepo.Get(1);
+
+//if (task != null)
+//{
+//    Console.WriteLine(task.Description);
 //}
 
 #endregion
