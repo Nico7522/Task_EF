@@ -37,23 +37,20 @@ namespace Task_EF.Services
 
         public IEnumerable<TaskWithPerson> GetAllWithPerson()
         {
-            // TO FIX
-            IEnumerable<TaskWithPerson> tasksWithPeople = _dc.TaskPerson
+           
+           IEnumerable<TaskWithPerson> tasksWithPeople = _dc.TaskPerson
                 .Join(_dc.People, tp => tp.PersonId, p => p.PersonId, (tp, p) => new { TaskPerson = tp, Person = p })
                 .Join(_dc.Tasks, tp => tp.TaskPerson.TaskId, t => t.TaskId, (tp, t) => new { Tache = t, Personne = tp })
                 .GroupBy(x => x.Tache)
+                .AsEnumerable()
                 .Select(t => new TaskWithPerson()
                 {
                     TaskId = t.Key.TaskId,
                     Title = t.Key.Title,
                     Description = t.Key.Description,
                     IsCompleted = t.Key.IsCompleted,
-                    People = (List<Person>)t.Select(p => p.Personne)
+                    People = t.Key.PersonTp.Select(x => x.Person).ToList(),
                 });
-                
-          
-
-
             return tasksWithPeople;
         }
 

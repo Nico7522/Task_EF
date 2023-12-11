@@ -1,4 +1,6 @@
 ﻿using Task_EF.Domain;
+using Task_EF.Entities;
+using Task_EF.Models;
 using Task_EF.Repository;
 using Task_EF.Services;
 using TaskModel = Task_EF.Entities.Task;
@@ -119,7 +121,7 @@ ITaskRepository _taskRepo = new TaskService();
 
 #region GetWithPerson avec service
 
-var list = _taskRepo.GetAllWithPerson();
+IEnumerable<TaskWithPerson> list = _taskRepo.GetAllWithPerson();
 foreach (var task in list)
 {
     Console.WriteLine(task.Description);
