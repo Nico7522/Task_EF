@@ -1,6 +1,6 @@
 ﻿namespace Task_API.Models
 {
-    public class TaskModel
+    public class TaskDTO
     {
         private int _taskId;
         private string _title;

@@ -121,18 +121,18 @@ ITaskRepository _taskRepo = new TaskService();
 
 #region GetWithPerson avec service
 
-IEnumerable<TaskWithPerson> list = _taskRepo.GetAllWithPerson();
-foreach (var task in list)
-{
-    Console.WriteLine(task.Description);
-    if (task.People.Count() > 0)
-    {
-        foreach (var person in task.People)
-        {
-            Console.WriteLine(person.FirstName);
-        }
-    }
+//IEnumerable<TaskWithPerson> list = _taskRepo.GetAllWithPerson();
+//foreach (var task in list)
+//{
+//    Console.WriteLine(task.Description);
+//    if (task.People.Count() > 0)
+//    {
+//        foreach (var person in task.People)
+//        {
+//            Console.WriteLine(person.FirstName);
+//        }
+//    }
 
-}
+//}
 #endregion
 

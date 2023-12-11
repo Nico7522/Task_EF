@@ -18,7 +18,7 @@ namespace Task_API.Controllers
             _task = task;
         }
         [HttpGet]
-        public ActionResult<TaskModel> GetAllTasks() {
+        public ActionResult<TaskDTO> GetAllTasks() {
 
             var tasks = _task.GetAll();
 
@@ -26,8 +26,15 @@ namespace Task_API.Controllers
         
         }
 
+        [HttpGet("withperson")]
+        public ActionResult<TaskWithPersonDTO> GetAllWithPerson()
+        {
+            var tasks = _task.GetAllWithPerson();
+            return Ok(tasks.Select(t => t.ToTaskWithPerson()).ToList());
+        }
+
         [HttpGet("{id}")]
-        public ActionResult<TaskModel> GetOneTask(int id)
+        public ActionResult<TaskDTO> GetOneTask(int id)
         {
             var task = _task.Get(id);
             if (task is null)
