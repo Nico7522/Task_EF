@@ -136,3 +136,13 @@ ITaskRepository _taskRepo = new TaskService();
 //}
 #endregion
 
+#region Insert Task avec service
+
+int newTaskId =_taskRepo.Insert(new TaskModel()
+{
+    Title = "Tondre la pelouse",
+    Description = "Tondre la pelouse avec la tondeuse"
+});
+
+if (newTaskId > 0) Console.WriteLine(newTaskId);
+#endregion

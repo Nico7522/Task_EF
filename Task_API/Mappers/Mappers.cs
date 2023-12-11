@@ -1,4 +1,5 @@
 ﻿using Task_API.Models;
+using Task_API.Models.Form;
 using Task_EF.Models;
 using TaskEntity = Task_EF.Entities.Task;
 
@@ -27,6 +28,17 @@ namespace Task_API.Mappers
                 Description = task.Description,
                 IsCompleted = task.IsCompleted,
                 People = task.People.Select(p => new PersonDTO { PersonId = p.PersonId, FirstName = p.FirstName, LastName = p.LastName }).ToList(),
+            };
+        }
+
+        internal static TaskEntity ToTaskEntity(this CreateTaskForm task)
+        {
+            return new TaskEntity
+            {
+             
+                Title = task.Title,
+                Description = task.Description,
+             
             };
         }
     }

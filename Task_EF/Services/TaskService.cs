@@ -15,11 +15,11 @@ namespace Task_EF.Services
     {
         private readonly DataContext _dc = new DataContext();
 
-        public bool Delete(TaskModel entity)
+        public IEnumerable<TaskModel> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<TaskModel> tasks = _dc.Tasks.Select(t => new TaskModel(){ TaskId= t.TaskId, Title = t.Title, Description = t.Description, IsCompleted = t.IsCompleted, PersonTp = t.PersonTp }) ;
+            return tasks ;
         }
-        
         public TaskModel? Get(int id)
         {
             TaskModel? task = _dc.Tasks.Where(t => t.TaskId == id).SingleOrDefault();
@@ -27,12 +27,6 @@ namespace Task_EF.Services
                 return null;
 
             return task;
-        }
-
-        public IEnumerable<TaskModel> GetAll()
-        {
-            IEnumerable<TaskModel> tasks = _dc.Tasks.Select(t => new TaskModel(){ TaskId= t.TaskId, Title = t.Title, Description = t.Description, IsCompleted = t.IsCompleted, PersonTp = t.PersonTp }) ;
-            return tasks ;
         }
 
         public IEnumerable<TaskWithPerson> GetAllWithPerson()
@@ -56,12 +50,24 @@ namespace Task_EF.Services
 
         public int Insert(TaskModel entity)
         {
-            throw new NotImplementedException();
+           var createdTask = _dc.Add(entity);
+            _dc.SaveChanges();
+            int id = createdTask.Entity.TaskId;
+            if (id <= 0) return id;
+
+            return id;
         }
 
         public int Update(int id, TaskModel entity)
         {
             throw new NotImplementedException();
         }
+
+
+        public bool Delete(TaskModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

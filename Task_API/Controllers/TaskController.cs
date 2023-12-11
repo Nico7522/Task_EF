@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Task_API.Mappers;
 using Task_API.Models;
+using Task_API.Models.Form;
 using Task_EF.Domain;
 using Task_EF.Repository;
 
@@ -41,6 +43,16 @@ namespace Task_API.Controllers
                 return BadRequest();
 
             return Ok(task.ToTask());
+        }
+
+        [HttpPost]
+
+        public ActionResult Insert(CreateTaskForm form)
+        {
+            int newTaskId = _task.Insert(form.ToTaskEntity());
+            if (newTaskId > 0) return Created("https://localhost:7198/api/task/{id}", newTaskId);
+
+            return BadRequest();
         }
     }
 }
