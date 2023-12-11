@@ -50,7 +50,7 @@ namespace Task_API.Controllers
         public ActionResult Insert(CreateTaskForm form)
         {
             int newTaskId = _task.Insert(form.ToTaskEntity());
-            if (newTaskId > 0) return Created("https://localhost:7198/api/task/{id}", newTaskId);
+            if (newTaskId > 0) return Created($"https://localhost:7198/api/Task/{newTaskId}", newTaskId);
 
             return BadRequest();
         }
